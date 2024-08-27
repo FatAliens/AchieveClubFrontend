@@ -1,0 +1,72 @@
+﻿@page "/profile"
+@layout MainLayout
+
+<header>
+    <div class="exitLink">
+        <a href="login">
+            <img id="exitImg" src="./img/chevron-left.svg" alt="" />
+        </a>
+    </div>
+
+
+    <div class="heading-wrapper">
+    </div>
+
+    <div class="userProfile">
+        <div class="userImage">
+            <img id="userProfileImg" src="./img/logo.png" alt="">
+        </div>
+        <div class="changePhotoContainer">
+            <input type="file" id="changePhotoInput" class="changePhotoInput" accept="image/jpeg,image/png,image/webp" />
+            <label for="changePhotoInput" class="changePhotoText">
+                Изменить аватарку
+            </label>
+        </div>
+        <div class="userId">
+            <p>
+                <!--First Name-->
+                Имя
+
+                <!--Last Name-->
+                Фамилия
+                <br>
+                <a id="locate" href="club">Клуб Название</a>
+            </p>
+        </div>
+    </div>
+</header>
+<button id="acceptList" onclick="">
+    <span>Подтвердить все</span>
+</button>
+<main>
+    <div class="generalInfo">
+        <!--XP SUM-->
+        <div class="xp">
+            <h1 id="XPLevel">100500 ХР</h1>
+            <p id="XPSlogan">Общее количество опыта</p>
+        </div>
+        <hr id="hr">
+        <div class="task">
+            <!--Completed Count-->
+            <h1 id="allTasks">Заданий выполнено: 100 из 100</h1>
+            <!--Completed Ratio (%)-->
+            <p id="tasksSlogan">Выполнено 100%</p>
+        </div>
+    </div>
+    <!---It's generalInfo -->
+    <div class="completed" id="completed">
+        <h1 id="completedTasks">Выполненные </h1>
+    </div>
+    <Achievement/>
+    <Achievement/>
+    <Achievement/>
+    <!------------task completed------------------------->
+    <div class="notCompleted" id="notCompleted">
+        <h1 id="notCompletedTasks">Невыполненные </h1>
+    </div>
+    <Achievement/>
+    <Achievement/>
+    <Achievement/>
+    <Achievement/>
+    <Achievement/>
+</main>

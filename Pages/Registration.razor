@@ -1,0 +1,75 @@
+﻿@page "/registration"
+
+<header>
+    <div class="header-wrapper">
+        <div class="img">
+            <img src="./img/logo.png" alt="">
+        </div>
+        <div class="text-wrapper">
+            <h3>
+                <b>Система достижений</b>
+            </h3>
+        </div>
+    </div>
+</header>
+<main>
+    <div class="content-wrapper">
+        <div class="headingWrapper">
+            <h3>Зарегистрироваться</h3>
+        </div>
+        <div class="registerForm">
+            <hr />
+            <p><a href="/login">Войти в систему</a></p>
+        </div>
+        <div class="emailForm">
+            <span>Имя</span>
+            <input type="text" name="">
+        </div>
+        <div class="emailForm">
+            <span>Фамилия</span>
+            <input type="text" name="">
+        </div>
+        <div class="emailForm">
+            <span>Email</span>
+            <input type="email" name="">
+        </div>
+        <div class="emailForm">
+            <span>Фотография</span>
+            <div class="input__file-cont">
+                <input type="file" class="input__file" id="input__file" accept="image/jpeg,image/png,image/webp" />
+                <label for="input__file" class="input__file-button">
+                    <span class="input__file-icon-wrapper">
+                        <img class="input__file-icon" src="./img/upload.webp" alt="Выбрать файл">
+                    </span>
+                    <span class="input__file-button-text">Выберите файл</span>
+                </label>
+            </div>
+            @if (true)
+            {
+                <div id="inputFileImg-cont">
+                    <img src="./img/logo.png" style="border-radius:50%; width:200px; height:200px; margin: 0 auto" />
+                </div>
+            }
+        </div>
+        <div class="emailForm">
+            <span>Место обучения</span>
+            <select>
+                <option value="1">Title1</option>
+                <option value="2">Title2</option>
+                <option value="3">Title3</option>
+            </select>
+        </div>
+        <div class="passwordForm">
+            <span>Пароль</span>
+            <input type="password" name="">
+        </div>
+        <div class="passwordForm">
+            <span>Подтверждение пароля</span>
+            <input type="password" name="">
+        </div>
+        <div class="submitButton">
+            <button type="submit">Регистрация</button>
+        </div>
+        <p style="color:red;">_resultMessage</p>
+    </div>
+</main>
