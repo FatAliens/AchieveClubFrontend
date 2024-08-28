@@ -8,10 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Layout\AppNav.razor.css" />
     <None Remove="Pages\Registration.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Layout\AppNav.razor.css" />
     <Content Include="Pages\Registration.razor.css" />
   </ItemGroup>
 
@@ -22,6 +24,12 @@
 
   <ItemGroup>
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\img\logout-icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

@@ -1,10 +1,10 @@
-﻿@page "/profile"
+﻿    @page "/profile"
 @layout MainLayout
 
 <header>
     <div class="exitLink">
         <a href="login">
-            <img id="exitImg" src="./img/chevron-left.svg" alt="" />
+            <img id="exitImg" src="./img/logout-icon.png" alt="" />
         </a>
     </div>
 
@@ -14,24 +14,17 @@
 
     <div class="userProfile">
         <div class="userImage">
-            <img id="userProfileImg" src="./img/logo.png" alt="">
-        </div>
-        <div class="changePhotoContainer">
             <input type="file" id="changePhotoInput" class="changePhotoInput" accept="image/jpeg,image/png,image/webp" />
             <label for="changePhotoInput" class="changePhotoText">
-                Изменить аватарку
+                <img id="userProfileImg" src="./img/logo.png" alt="">
             </label>
+            <div class="userId">
+                <p id="nameSurname">Имя Фамилия</p>
+            </div>
         </div>
-        <div class="userId">
-            <p>
-                <!--First Name-->
-                Имя
-
-                <!--Last Name-->
-                Фамилия
-                <br>
-                <a id="locate" href="club">Клуб Название</a>
-            </p>
+        <div class="clubImage">
+            <img id="clubImg" src="./img/logo.png" alt="">
+            <a id="locate" href="club"><p id="clubName">Клуб Название</p></a>
         </div>
     </div>
 </header>
@@ -51,22 +44,44 @@
             <h1 id="allTasks">Заданий выполнено: 100 из 100</h1>
             <!--Completed Ratio (%)-->
             <p id="tasksSlogan">Выполнено 100%</p>
+
+            <div class="progress-container">
+                <div class="progress-bar" style="width: @ProgressPercentage%;"></div>
+            </div>
+
+            <button @onclick="IncreaseProgress">In  crease Progress</button>
         </div>
     </div>
     <!---It's generalInfo -->
     <div class="completed" id="completed">
         <h1 id="completedTasks">Выполненные </h1>
     </div>
-    <Achievement/>
-    <Achievement/>
-    <Achievement/>
+    <div class="achievement-list">
+        <Achievement />
+        <Achievement />
+        <Achievement />
+    </div>
     <!------------task completed------------------------->
     <div class="notCompleted" id="notCompleted">
         <h1 id="notCompletedTasks">Невыполненные </h1>
     </div>
-    <Achievement/>
-    <Achievement/>
-    <Achievement/>
-    <Achievement/>
-    <Achievement/>
+    <div class="achievement-list">
+        <Achievement />
+        <Achievement />
+        <Achievement />
+        <Achievement />
+        <Achievement />
+    </div>
 </main>
+
+@code {
+    private int ProgressPercentage { get; set; } = 0;
+
+    private void IncreaseProgress()
+    {
+        if (ProgressPercentage < 100)
+        {
+            ProgressPercentage += 10;
+        }
+    }
+}
