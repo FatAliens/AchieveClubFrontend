@@ -4,6 +4,10 @@
     margin: 0;
 }
 
+main {
+    background-color: gray;
+}
+
 nav {
     background: white;
     position: fixed;
