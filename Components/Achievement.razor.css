@@ -48,7 +48,9 @@
 
 .text {
     font-size: 0.8em;
-    color: gray;
+    color: silver;
+    padding-top:1%;
+    font-weight: bold;
 }
 
 .perscent {

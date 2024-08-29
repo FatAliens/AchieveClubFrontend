@@ -29,7 +29,7 @@
     </div>
 </header>
 <button id="acceptList" onclick="">
-    <span>Подтвердить все</span>
+    <img id="qr-code-img" src="./img/qr-code.png" alt="qr-code"/>
 </button>
 <main>
     <div class="generalInfo">
@@ -48,8 +48,6 @@
             <div class="progress-container">
                 <div class="progress-bar" style="width: @ProgressPercentage%;"></div>
             </div>
-
-            <button @onclick="IncreaseProgress">In  crease Progress</button>
         </div>
     </div>
     <!---It's generalInfo -->
@@ -76,12 +74,4 @@
 
 @code {
     private int ProgressPercentage { get; set; } = 0;
-
-    private void IncreaseProgress()
-    {
-        if (ProgressPercentage < 100)
-        {
-            ProgressPercentage += 10;
-        }
-    }
 }
