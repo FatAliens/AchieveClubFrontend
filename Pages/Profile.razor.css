@@ -95,7 +95,7 @@ nav {
 }
 
 .userId {
-    font-family: 'Play', sans-serif;
+    font-family: 'Exo 2', sans-serif;
     font-style: normal;
     font-weight: lighter;
     font-size: xx-large;
@@ -128,7 +128,7 @@ nav {
     justify-content: center !important;
     width: 60%;
     font-size: 20px;
-    font-family: 'Play', sans-serif;
+    font-family: 'Exo 2', sans-serif;
     font-style: normal;
     font-weight: normal;
     margin-left: 20%;
@@ -155,7 +155,7 @@ nav {
     }
 
 #locate, #XPLevel, #allTasks, #nameTask, #reward {
-    font-family: 'Play', sans-serif;
+    font-family: 'Exo 2', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 19px;
@@ -164,7 +164,7 @@ nav {
 }
 
 #completedTasks, #notCompletedTasks {
-    font-family: 'Play', sans-serif;
+    font-family: 'Exo 2', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 29px;
@@ -174,7 +174,7 @@ nav {
 }
 
 #locateSlogan, #XPSlogan, #tasksSlogan, .infoTask, .notInfoTask {
-    font-family: 'Play', sans-serif;
+    font-family: 'Exo 2', sans-serif;
     font-style: normal;
     font-weight: normal;
     margin: 0;
@@ -294,7 +294,7 @@ nav {
 
 #markUp, .markUpRed {
     margin: 0;
-    font-family: 'Play', sans-serif;
+    font-family: 'Exo 2', sans-serif;
     font-style: normal;
     font-weight: normal;
     border: 1px solid;

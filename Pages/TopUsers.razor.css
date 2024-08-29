@@ -1,5 +1,5 @@
-﻿
-header {
+﻿header {
+    background-color: #0e1316;
     border-radius: 0px 0px 50px 50px;
 }
 
@@ -51,36 +51,28 @@ footer img {
 
 .topUsers {
     display: flex;
-    justify-content:center;
-    flex-direction:column;
-    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 15px;
+    align-items:center;
 }
 
 
-.topClub:hover {
-    cursor: pointer;
-}
-
-
-.topClub {
+.topUser {
     background: #151e1d;
     border-radius: 20px;
     display: flex;
     padding: 15px;
     margin-top: 15px;
+    cursor: pointer;
+    width: 40%;
 }
 
 .userImage img {
     width: 50px;
+    height: 50px;
     object-fit: cover;
     border-radius: 50%;
-}
-
-.userImageTop img {
-    width: 55px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 1px solid #151e1d;
 }
 
 .userAboutWrapper {
@@ -88,7 +80,7 @@ footer img {
     flex-direction: column;
     justify-content: center;
     padding-left: 10px;
-    width: 50%;
+    width: 40%;
 }
 
 .nameSurnameUser {
@@ -99,13 +91,13 @@ footer img {
 }
 
 .xpCountUser {
-    font-size: 0.8em;
+    font-size: 13px;
     color: white;
 }
 
 .xpCountDefaultUser {
     font-size: 13px;
-    color: black;
+    color: white;
 }
 
 .clubUserLogo {
@@ -121,38 +113,39 @@ footer img {
     }
 
 .topPositionUser {
-    font-size: 2em;
+    font-size: 23px;
     font-weight: bold;
     text-align: center;
     display: flex;
-    color: white;
     align-items: center;
     color: white;
 }
 
 .topPositionUserDefault {
-    font-size: 2em;
+    font-size: 23px;
     font-weight: normal;
     text-align: center;
     display: flex;
-    color: white;
     align-items: center;
+    color: white;
 }
 
 .ClubLogoAndPositionUser {
-    width: 30%;
+    width: 40%;
     display: flex;
     justify-content: flex-end;
 }
 
-.clubWidth {
-    width: 40%;
+.px {
+    width: 100%;
+    height: 75px;
 }
 
 @media (max-width: 800px) {
-    .clubWidth {
+    .topUser {
         width: 80%;
     }
+
     .topPositionUser {
         font-size: 1.5em;
     }
@@ -162,12 +155,6 @@ footer img {
     #infoTask {
         text-align: left;
     }
-    .clubWidth {
-        width: 100%;
-    }
-    .topPositionUser {
-        font-size: 1.5em;
-    }
 }
 
 @media (max-width:1100px) {
@@ -175,11 +162,46 @@ footer img {
         width: 50%;
     }
 
-    .clubWidth {
+    .topUser {
         width: 80%;
     }
 
     .userAboutWrapper {
-        width: 80%;
+        width: 50%;
+    }
+
+    #infoTask {
+        width: 100%;
+        text-align: left;
+    }
+
+    .notInfoTask {
+        width: 100%;
+        text-align: left;
+    }
+
+    #nameTask {
+        text-align: left;
+    }
+
+    .aboutTask {
+        width: 100%;
+    }
+
+    .mark {
+        display: unset;
+    }
+
+    .taskXP {
+        width: 100px;
+        text-align: right;
+    }
+
+    .completedTask {
+        cursor: pointer;
+    }
+
+    .notCompletedTask {
+        cursor: pointer;
     }
 }

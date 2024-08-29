@@ -12,8 +12,15 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Exo 2';
+    src: url(../fonts/Exo2-Regular.ttf);
+    font-weight: bold;
+    font-style: normal;
+}
+
 html, body {
-    font-family: 'Play';
+    font-family: 'Exo 2';
     background: #0E1316;
 }
 
