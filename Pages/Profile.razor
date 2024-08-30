@@ -1,4 +1,5 @@
-﻿    @page "/profile"
+﻿@page "/profile"
+@using System.Reflection
 @layout MainLayout
 
 <header>
@@ -29,7 +30,7 @@
     </div>
 </header>
 <button id="acceptList" onclick="">
-    <img id="qr-code-img" src="./img/qr-code.png" alt="qr-code"/>
+    <img id="qr-code-img" src="./img/qr-code.png" alt="qr-code" @onclick="OpenModal" />
 </button>
 <main>
     <div class="generalInfo">
@@ -72,6 +73,49 @@
     </div>
 </main>
 
+<ModalWindow @ref="modal" IsVisible="@isModalVisible" IsVisibleChanged="OnModalVisibilityChanged">
+    <div class="modal-header">
+        <img id="modal-userImg" src="./img/logo.png" alt="user-logo"/>
+        <h2 id="modal-nameSurname">Имя Фамилия</h2>
+    </div>
+    <h3 id="achieve-count">Достижений: 666</h3>
+    <div class="modal-achievements">
+        <div class="modal-achieve">
+            <img src="./img/logo.png" alt="achive-logo"/>
+            <h3>Название достижения</h3>
+        </div>
+        <div class="modal-achieve">
+            <img src="./img/logo.png" alt="achive-logo"/>
+            <h3>Название достижения</h3>
+        </div>
+        <div class="modal-achieve">
+            <img src="./img/logo.png" alt="achive-logo" />
+            <h3>Название достижения</h3>
+        </div>
+        <div class="modal-achieve">
+            <img src="./img/logo.png" alt="achive-logo" />
+            <h3>Название достижения</h3>
+        </div>
+    </div>
+    <div class="qr-code">
+        <img src="./img/qr-code(1).png" alt="qr-code"/>
+    </div>
+    <h3 id="show-qrcode">Покажите QR-код тренеру для выполнения выбранных достижений</h3>
+</ModalWindow>
+
 @code {
     private int ProgressPercentage { get; set; } = 0;
+
+    private ModalWindow modal;
+    private bool isModalVisible;
+
+    private void OpenModal()
+    {
+        isModalVisible = true;
+    }
+
+    private void OnModalVisibilityChanged(bool isVisible)
+    {
+        isModalVisible = isVisible;
+    }
 }

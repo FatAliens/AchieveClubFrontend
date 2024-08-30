@@ -253,7 +253,7 @@ nav {
 
 #acceptList {
     right: 5%;
-    bottom: 5%;
+    bottom: 15%;
     z-index: 1;
     border: none;
     text-align: center;
@@ -264,10 +264,14 @@ nav {
     color: black;
 }
 
-#qr-code-img {
-    width: 48px;
-    object-fit: cover;
-}
+    #acceptList:hover {
+        cursor: pointer;
+    }
+
+    #qr-code-img {
+        width: 48px;
+        object-fit: cover;
+    }
 
 .aboutTask {
     width: 100%;
@@ -370,6 +374,84 @@ footer img {
     grid-template-columns: repeat(2, 1fr);
 }
 
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+#achieve-count {
+    margin: 2%;
+}
+
+.modal-achievements {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /*white-space: nowrap;*/
+    overflow-x: auto;
+    width: 90%;
+    max-width: 90%;
+}
+
+.modal-achieve {
+    background: #252b2b;
+    height: 10em;
+    margin: 1%;
+    padding: 0 5% 0 5%;
+    border-radius: 10px;
+    margin-right: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+    .modal-achieve img {
+        width: 4em;
+        object-fit: cover;
+    }
+
+    .modal-achieve h3 {
+        font-size: 0.8em;
+        text-align: center;
+        margin-top: 5%;
+        word-wrap: break-word;
+    }
+
+.qr-code {
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    margin: 2%;
+    padding: 5%;
+}
+
+    .qr-code img {
+        width: 15em;
+        object-fit: cover;
+    }
+
+#show-qrcode {
+    text-align: center;
+}
+
+#modal-nameSurname {
+    width: 50%;
+    text-align: center;
+}
+
+#modal-userImg {
+    width: 7em;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid #0d2122;
+}
+
 @media(max-width:430px) {
     .achievement-list {
         grid-template-columns: repeat(1, 1fr) !important;
@@ -379,6 +461,15 @@ footer img {
     #infoTask {
         text-align: left;
     }
+
+    .modal-achievements {
+        scrollbar-width: none; /* Скрываем скролл-бар в Firefox */
+        -ms-overflow-style: none; /* Скрываем скролл-бар в Internet Explorer и Edge */
+    }
+
+        .modal-achievements::-webkit-scrollbar {
+            display: none; /* Скрываем скролл-бар в WebKit-браузерах (Chrome, Safari) */
+        }
 }
 
 @media(max-width:600px) {
@@ -401,6 +492,15 @@ footer img {
     #nameSurname {
         width: unset !important;    
     }
+
+    .modal-achievements {
+        scrollbar-width: none; /* Скрываем скролл-бар в Firefox */
+        -ms-overflow-style: none; /* Скрываем скролл-бар в Internet Explorer и Edge */
+    }
+
+        .modal-achievements::-webkit-scrollbar {
+            display: none; /* Скрываем скролл-бар в WebKit-браузерах (Chrome, Safari) */
+        }
 }
 
 @media (max-width: 800px) {
