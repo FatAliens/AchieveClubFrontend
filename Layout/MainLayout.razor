@@ -1,3 +1,53 @@
 ﻿@inherits LayoutComponentBase
-<AppNav/>
+@inject NavigationManager _navigation
+
 @Body
+
+<div class="px"></div>
+<footer>
+    <div class="footerSections">
+        <div class="firstSection">
+            <a href="@_profilePath">
+                <img id="icon-nav" src="./img/logo.png" alt="profile" />
+                @* <img src="StaticFiles/icons/user_profile.png" alt="">*@
+            </a>
+            <h3>Профиль</h3>
+            @if (LocalPath == _profilePath)
+            {
+                <hr />
+            }
+        </div>
+        <div class="secondSection">
+            <a href="@_topUsersPath">
+                <img id="icon-nav" src="./img/logo.png" alt="top-users" />
+            </a>
+            <h3>Топ 100 пользователей</h3>
+            @if (LocalPath == _topUsersPath || LocalPath.Contains(_anotherUserPage))
+            {
+                <hr />
+            }
+        </div>
+        <div class="thirdSection">
+            <a href="@_topClubsPath">
+                <img id="icon-nav" src="./img/logo.png" alt="top-clubs" />
+            </a>
+            <h3>Топ клубов</h3>
+            @if (LocalPath == _topClubsPath || LocalPath.Contains(_clubPage))
+            {
+                <hr />
+            }
+        </div>
+    </div>
+</footer>
+
+@code
+{
+    public string LocalPath => (new Uri(_navigation.Uri)).LocalPath;
+
+    private const string _profilePath = "/profile";
+    private const string _topUsersPath = "/topusers";
+    private const string _topClubsPath = "/topclubs";
+
+    private const string _anotherUserPage = "/user/";
+    private const string _clubPage = "/club/";
+}
