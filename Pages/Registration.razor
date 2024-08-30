@@ -1,75 +1,57 @@
 ﻿@page "/registration"
 
 <header>
-    <div class="header-wrapper">
-        <div class="img">
-            <img src="./img/logo.png" alt="">
-        </div>
-        <div class="text-wrapper">
-            <h3>
-                <b>Система достижений</b>
-            </h3>
-        </div>
+    <div id="title">
+        <h1>Зарегистрируйтесь</h1>
+        <select class="change-lang">
+            <option value="ru">RU</option>
+            <option value="en">EN</option>
+            <option value="pl">PL</option>
+        </select>
+    </div>
+    <div id="subtitle">
+        <h3>
+            <span>или</span>
+            <a href="login">войдите в аккаунт</a>
+        </h3>
     </div>
 </header>
 <main>
-    <div class="content-wrapper">
-        <div class="headingWrapper">
-            <h3>Зарегистрироваться</h3>
-        </div>
-        <div class="registerForm">
-            <hr />
-            <p><a href="/login">Войти в систему</a></p>
-        </div>
-        <div class="emailForm">
-            <span>Имя</span>
-            <input type="text" name="">
-        </div>
-        <div class="emailForm">
-            <span>Фамилия</span>
-            <input type="text" name="">
-        </div>
-        <div class="emailForm">
-            <span>Email</span>
-            <input type="email" name="">
-        </div>
-        <div class="emailForm">
-            <span>Фотография</span>
-            <div class="input__file-cont">
-                <input type="file" class="input__file" id="input__file" accept="image/jpeg,image/png,image/webp" />
-                <label for="input__file" class="input__file-button">
-                    <span class="input__file-icon-wrapper">
-                        <img class="input__file-icon" src="./img/upload.webp" alt="Выбрать файл">
-                    </span>
-                    <span class="input__file-button-text">Выберите файл</span>
-                </label>
-            </div>
-            @if (true)
-            {
-                <div id="inputFileImg-cont">
-                    <img src="./img/logo.png" style="border-radius:50%; width:200px; height:200px; margin: 0 auto" />
-                </div>
-            }
-        </div>
-        <div class="emailForm">
-            <span>Место обучения</span>
-            <select>
-                <option value="1">Title1</option>
-                <option value="2">Title2</option>
-                <option value="3">Title3</option>
+    <div id="login-form">
+        <div class="field">
+            <label class="input-label">Выберите клуб</label>
+            <select class="select">
+                <option value="ru">Двойной Чикаго</option>
+                <option value="en">Дворец</option>
             </select>
         </div>
-        <div class="passwordForm">
-            <span>Пароль</span>
-            <input type="password" name="">
+        <div class="field">
+            <label class="input-label">Имя</label>
+            <input class="input is-error" type="text" placeholder="Введите имя...">
+            <p class="error">Обязательно для заполнения</p>
         </div>
-        <div class="passwordForm">
-            <span>Подтверждение пароля</span>
-            <input type="password" name="">
+        <div class="field">
+            <label class="input-label">Фамилия</label>
+            <input class="input is-error" type="text" placeholder="Введите фамилию...">
+            <p class="error">Обязательно для заполнения</p>
         </div>
-        <div class="submitButton">
-            <button type="submit">Регистрация</button>
+        <div class="field">
+            <label class="input-label">E-mail</label>
+            <input class="input is-error" type="text" placeholder="email@mail.com">
+            <p class="error">Обязательно для заполнения</p>
         </div>
-        <p style="color:red;">_resultMessage</p>
+        <div class="field">
+            <label class="input-label">Пароль</label>
+            <input class="input" type="password" placeholder="•••••••••">
+            <p class="error">Обязательно для заполнения</p>
+        </div>
+        <div class="field">
+            <label class="input-label">Подтверждение пароля</label>
+            <input class="input" type="password" placeholder="•••••••••">
+            <p class="error">Обязательно для заполнения</p>
+        </div>
+        <button type="submit" id="login-button">Зарегистрироваться</button>
     </div>
+
+
 </main>

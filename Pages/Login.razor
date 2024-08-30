@@ -1,37 +1,35 @@
 ﻿@page "/login"
 
 <header>
-    <div class="header-wrapper">
-        <div class="img">
-            <img src="./img/logo.png" alt="">
-        </div>
-        <div class="text-wrapper">
-            <h3>
-                <b>Система достижений</b>
-            </h3>
-        </div>
+    <div id="title">
+        <h1>Вход в аккаунт</h1>
+        <select class="change-lang">
+            <option value="ru">RU</option>
+            <option value="en">EN</option>
+            <option value="pl">PL</option>
+        </select>
+    </div>
+    <div id="subtitle">
+        <h3>
+            <span>или</span>
+            <a href="registration">зарегистрируйтесь</a>
+        </h3>
     </div>
 </header>
 <main>
-    <div class="content-wrapper">
-        <div class="headingWrapper">
-            <h3>Войти в систему</h3>
+    <div id="login-form">
+        <div class="field">
+            <label class="input-label">E-mail</label>
+            <input class="input is-error" type="text" placeholder="email@mail.com">
+            <p class="error">Обязательно для заполнения</p>
         </div>
-        <div class="registerForm">
-            <hr />
-            <a href="/registration">Зарегистрироваться</a>
+        <div class="field">
+            <label class="input-label">Пароль</label>
+            <input class="input" type="password" placeholder="•••••••••">
+            <a href="#" class="input-help">Забыли пароль?</a>
         </div>
-        <div class="emailForm">
-            <span>Email</span>
-            <input type="email" name="" id="emailInput">
-        </div>
-        <div class="passwordForm">
-            <span>Пароль</span>
-            <input type="password" name="" id="passwordInput">
-        </div>
-        <div class="submitButton">
-            <button type="submit">Войти</button>
-        </div>
-        <p>result</p>
+        <button type="submit" id="login-button">Войти</button>
     </div>
+
+
 </main>
