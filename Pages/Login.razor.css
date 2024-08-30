@@ -56,6 +56,7 @@
     border-bottom: 3px solid #80d4d6;
     color: #d9dee1;
     padding: 5px;
+    width: 100%;
 }
 
     .input::placeholder {
@@ -96,4 +97,12 @@
 
 .field {
     margin-bottom: 10px;
+    width: 30%
+}
+
+
+@media (max-width: 768px) {
+    .field {
+        width: 85%;
+    }
 }
