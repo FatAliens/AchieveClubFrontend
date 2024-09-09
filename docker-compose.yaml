@@ -1,10 +1,16 @@
-version: '3.4'
+version: '3.8'
 
 services:
-  blazorstandalone:
-    image: blazorstandalone
+  blazor-app:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: ${BLAZOR_APP_NAME}
     ports:
-      - 8080:80
+      - "${NGINX_PORT}:${BLAZOR_APP_PORT}"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    restart: always
+    environment:
+      - BLAZOR_APP_NAME=${BLAZOR_APP_NAME}
+      - BLAZOR_APP_PORT=${BLAZOR_APP_PORT}
