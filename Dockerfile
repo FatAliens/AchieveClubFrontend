@@ -2,6 +2,10 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 80
 
+MAINTAINER Vlad Fedorovich <sskef@outlook.com>
+
+ENV TZ=Europe/Moscow
+
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["AchieveClubFrontend.csproj", "."]
