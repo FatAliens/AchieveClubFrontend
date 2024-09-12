@@ -1,6 +1,7 @@
 ﻿@page "/topclubs"
 @layout MainLayout
 @inject NavigationManager _navigation
+@inject HttpClient HttpClient
 
 <header>
     <div class="heading-wrapper">
@@ -12,86 +13,59 @@
 <!-----------------------------------header----------------------------------------->
 <main>
     <div class="topUsers">
-        <a class="clubWidth">
-            <div class="topClub">
-                <div class="userImageTop">
-                    <img src="./img/logo.png" alt="">
-                </div>
-                <div class="userAboutWrapper">
-                    <div class="nameSurnameUser">
-                        <span>Клуб название</span>
+        @if (topClubs.Count > 0)
+        {
+            @foreach (var club in topClubs)
+            {
+                <a class="clubWidth" @onclick="() => NavigateToClubPage(club.Id, club.Position)">
+                    <div class="topClub">
+                        <div class="userImageTop">
+                            <img src="@($"{HttpClient.BaseAddress}/{club.LogoURL}")" alt="">
+                        </div>
+                        <div class="userAboutWrapper">
+                            <div class="nameSurnameUser">
+                                <span>@club.Title</span>
+                            </div>
+                            <div class="xpCountUser">
+                                <span>Средний опыт: @club.AvgXp</span>
+                            </div>
+                        </div>
+                        <div class="ClubLogoAndPositionUser">
+                            <div class="topPositionUser">
+                                <span>#@club.Position</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="xpCountUser">
-                        <span>Средний опыт: 1337</span>
-                    </div>
-                </div>
-                <div class="ClubLogoAndPositionUser">
-                    <div class="topPositionUser">
-                        <span>#1</span>
-                    </div>
-                </div>
-            </div>
-        </a>
-        <a class="clubWidth">
-            <div class="topClub">
-                <div class="userImageTop">
-                    <img src="./img/logo.png" alt="">
-                </div>
-                <div class="userAboutWrapper">
-                    <div class="nameSurnameUser">
-                        <span>Клуб название</span>
-                    </div>
-                    <div class="xpCountUser">
-                        <span>Средний опыт: 1337</span>
-                    </div>
-                </div>
-                <div class="ClubLogoAndPositionUser">
-                    <div class="topPositionUser">
-                        <span>#2</span>
-                    </div>
-                </div>
-            </div>
-        </a>
-        <a class="clubWidth">
-            <div class="topClub">
-                <div class="userImageTop">
-                    <img src="./img/logo.png" alt="">
-                </div>
-                <div class="userAboutWrapper">
-                    <div class="nameSurnameUser">
-                        <span>Клуб название</span>
-                    </div>
-                    <div class="xpCountUser">
-                        <span>Средний опыт: 1337</span>
-                    </div>
-                </div>
-                <div class="ClubLogoAndPositionUser">
-                    <div class="topPositionUser">
-                        <span>#3</span>
-                    </div>
-                </div>
-            </div>
-        </a>
-        <a class="clubWidth">
-            <div class="topClub">
-                <div class="userImageTop">
-                    <img src="./img/logo.png" alt="">
-                </div>
-                <div class="userAboutWrapper">
-                    <div class="nameSurnameUser">
-                        <span>Клуб название</span>
-                    </div>
-                    <div class="xpCountUser">
-                        <span>Средний опыт: 1337</span>
-                    </div>
-                </div>
-                <div class="ClubLogoAndPositionUser">
-                    <div class="topPositionUser">
-                        <span>#4</span>
-                    </div>
-                </div>
-            </div>
-        </a>
+                </a>
+            }
+        }
+        else
+        {
+            <p>No clubs found.</p>
+        }
     </div>
 </main>
 <!-----------------------------------main----------------------------------------->
+
+@code {
+    private List<Club> topClubs = new List<Club>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await HttpClient.GetAsync("/api/clubs");
+        if (response.IsSuccessStatusCode)
+        {
+            topClubs = await response.Content.ReadFromJsonAsync<List<Club>>();
+            topClubs = topClubs.OrderByDescending(c => c.AvgXp).ToList();
+            for (int i = 0; i < topClubs.Count; i++)
+            {
+                topClubs[i].Position = i + 1;
+            }
+        }
+    }
+
+    private void NavigateToClubPage(int clubId, int position)
+    {
+        _navigation.NavigateTo($"/clubpage/{clubId}/{position}");
+    }
+}
