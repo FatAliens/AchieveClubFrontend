@@ -1,0 +1,20 @@
+﻿<div class="achievement completed">
+    <img class="picture" src="@($"{BaseAdress}/{achievement.logoURL}")" alt="Achievement Image">
+    <div class="about">
+        <h3 class="title">
+            @achievement.Title
+        </h3>
+        <p class="description">
+            @achievement.Description
+        </p>
+        <p class="text">XP: @achievement.Xp</p>
+        <p class="text">Процент выполнения: @achievement.completionRatio</p>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Achievement achievement { get; set; } = null!;
+    [Parameter]
+    public string BaseAdress { get; set; } = null!;
+}

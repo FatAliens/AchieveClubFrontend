@@ -1,113 +1,200 @@
 ﻿@page "/profile"
 @using System.Reflection
+@using System.Net.Http.Headers
+@using QRCoder
 @layout MainLayout
+@inject IJSRuntime JSRuntime
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
 
-<header>
-    <div class="exitLink">
-        <a href="login">
-            <img id="exitImg" src="./img/logout-icon.png" alt="" />
-        </a>
-    </div>
+@if (userProfile != null)
+{
+    <header>
+        <div class="exitLink">
+            <a href="login">
+                <img id="exitImg" src="./img/logout-icon.png" alt="" />
+            </a>
+        </div>
 
 
-    <div class="heading-wrapper">
-    </div>
+        <div class="heading-wrapper">
+        </div>
 
-    <div class="userProfile">
-        <div class="userImage">
-            <input type="file" id="changePhotoInput" class="changePhotoInput" accept="image/jpeg,image/png,image/webp" />
-            <label for="changePhotoInput" class="changePhotoText">
-                <img id="userProfileImg" src="./img/logo.png" alt="">
-            </label>
-            <div class="userId">
-                <p id="nameSurname">Имя Фамилия</p>
+        <div class="userProfile">
+            <div class="userImage">
+                <label for="changePhotoInput" class="changePhotoText">
+                    <img id="userProfileImg" src="@($"{httpClient.BaseAddress}/{userProfile.Avatar}")" alt="User Avatar">
+                </label>
+                <div class="userId">
+                    <p id="nameSurname">@($"{userProfile.FirstName} {userProfile.LastName}")</p>
+                </div>
+            </div>
+            <div class="clubImage">
+                <img id="clubImg" src="@($"{httpClient.BaseAddress}/{userProfile.ClubLogo}")" alt="Club Logo">
+                <a id="locate" href="club"><p id="clubName">@userProfile.ClubName</p></a>
             </div>
         </div>
-        <div class="clubImage">
-            <img id="clubImg" src="./img/logo.png" alt="">
-            <a id="locate" href="club"><p id="clubName">Клуб Название</p></a>
-        </div>
-    </div>
-</header>
-<button id="acceptList" onclick="">
-    <img id="qr-code-img" src="./img/qr-code.png" alt="qr-code" @onclick="OpenModal" />
-</button>
-<main>
-    <div class="generalInfo">
-        <!--XP SUM-->
-        <div class="xp">
-            <h1 id="XPLevel">100500 ХР</h1>
-            <p id="XPSlogan">Общее количество опыта</p>
-        </div>
-        <hr id="hr">
-        <div class="task">
-            <!--Completed Count-->
-            <h1 id="allTasks">Заданий выполнено: 100 из 100</h1>
-            <!--Completed Ratio (%)-->
-            <p id="tasksSlogan">Выполнено 100%</p>
+    </header>
+    @if (selectedAchievements.Count > 0)
+    {
+        <button id="acceptList" onclick="">
+            <img id="qr-code-img" src="./img/qr-code.png" alt="qr-code" @onclick="OpenModal" />
+        </button>
+    }
+    <main>
+        <div class="generalInfo">
+            <div class="xp">
+                <h1 id="XPLevel">@userProfile.XpSum ХР</h1>
+                <p id="XPSlogan">Общее количество опыта</p>
+            </div>
+            <hr id="hr">
+            <div class="task">
+                <!--Completed Count-->
+                <h1 id="allTasks">Заданий выполнено: @completedAchievementIds.Count из @allAchievements.Count</h1>
+                <!--Completed Ratio (%)-->
+                <p id="tasksSlogan">Выполнено @completedPercentage%</p>
 
-            <div class="progress-container">
-                <div class="progress-bar" style="width: @ProgressPercentage%;"></div>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: @completedPercentage%;"></div>
+                </div>
             </div>
         </div>
-    </div>
-    <!---It's generalInfo -->
-    <div class="completed" id="completed">
-        <h1 id="completedTasks">Выполненные </h1>
-    </div>
-    <div class="achievement-list">
-        <Achievement />
-        <Achievement />
-        <Achievement />
-    </div>
-    <!------------task completed------------------------->
-    <div class="notCompleted" id="notCompleted">
-        <h1 id="notCompletedTasks">Невыполненные </h1>
-    </div>
-    <div class="achievement-list">
-        <Achievement />
-        <Achievement />
-        <Achievement />
-        <Achievement />
-        <Achievement />
-    </div>
-</main>
+        <!---It's generalInfo -->
+        @if (allAchievements.Count > 0)
+        {
+            @if(completedAchievements.Count > 0)
+            {
+                <div class="completed" id="completed">
+                    <h1 id="completedTasks">Выполненные </h1>
+                </div>
+                <div class="achievement-list">
+                    @foreach (var achievement in completedAchievements)
+                    {
+                        <CompletedAchievementItem achievement=@achievement BaseAdress=@(httpClient.BaseAddress.ToString()) />
+                    }
+                </div>
+            }
 
-<ModalWindow @ref="modal" IsVisible="@isModalVisible" IsVisibleChanged="OnModalVisibilityChanged">
-    <div class="modal-header">
-        <img id="modal-userImg" src="./img/logo.png" alt="user-logo"/>
-        <h2 id="modal-nameSurname">Имя Фамилия</h2>
-    </div>
-    <h3 id="achieve-count">Достижений: 666</h3>
-    <div class="modal-achievements">
-        <div class="modal-achieve">
-            <img src="./img/logo.png" alt="achive-logo"/>
-            <h3>Название достижения</h3>
+            @if (nonCompletedAchievements.Count > 0)
+            {
+                <div class="notCompleted" id="notCompleted">
+                    <h1 id="notCompletedTasks">Невыполненные </h1>
+                </div>
+                <div class="achievement-list">
+                    @foreach (var achievement in nonCompletedAchievements)
+                    {
+                        <NotCompletedAchievementItem achievement=@achievement BaseAdress=@(httpClient.BaseAddress.ToString()) OnSelected="OnAchievementSelected" />
+                    }
+                </div>
+                <button @onclick="OpenModal">Open Modal</button>
+            }
+        }
+    </main>
+
+    <ModalWindow @ref="modal" IsVisible="@isModalVisible" IsVisibleChanged="OnModalVisibilityChanged">
+        <div class="modal-header">
+            <img id="modal-userImg" src="@($"{httpClient.BaseAddress}/{userProfile.Avatar}")" alt="User Avatar">
+            <h2 id="modal-nameSurname">@($"{userProfile.FirstName} {userProfile.LastName}")</h2>
         </div>
-        <div class="modal-achieve">
-            <img src="./img/logo.png" alt="achive-logo"/>
-            <h3>Название достижения</h3>
+        <h3 id="achieve-count">Достижений: @selectedAchievements.Count</h3>
+        <div class="modal-achievements">
+            @foreach (var achievement in selectedAchievements)
+            {
+                <div class="modal-achieve">
+                    <img src="@($"{httpClient.BaseAddress}/{achievement.logoURL}")" alt="achive-logo" />
+                    <h3>@achievement.Title</h3>
+                </div>
+            }
         </div>
-        <div class="modal-achieve">
-            <img src="./img/logo.png" alt="achive-logo" />
-            <h3>Название достижения</h3>
-        </div>
-        <div class="modal-achieve">
-            <img src="./img/logo.png" alt="achive-logo" />
-            <h3>Название достижения</h3>
-        </div>
-    </div>
-    <div class="qr-code">
-        <img src="./img/qr-code(1).png" alt="qr-code"/>
-    </div>
-    <h3 id="show-qrcode">Покажите QR-код тренеру для выполнения выбранных достижений</h3>
-</ModalWindow>
+        @if (qrCodeImage != null)
+        {
+            <div class="qr-code">
+                <img src="@qrCodeImage" alt="qr-code" />
+            </div>
+        }
+        <h3 id="show-qrcode">Покажите QR-код тренеру для выполнения выбранных достижений</h3>
+    </ModalWindow>
+}
 
 @code {
-    private int ProgressPercentage { get; set; } = 0;
-
     private ModalWindow modal;
     private bool isModalVisible;
+    private UserProfile userProfile;
+    private List<Achievement> allAchievements;
+    private List<CompletedAchievementResponseItem> completedAchievementIds;
+    private List<Achievement> completedAchievements;
+    private List<Achievement> nonCompletedAchievements;
+    private List<Achievement> selectedAchievements = new List<Achievement>();
+    private int completedPercentage => (allAchievements.Count / completedAchievementIds.Count);
+    private string qrCodeImage;
+    private EditContext editContext;
+    private AuthService authService;
+    private LoginResponse loginResponse;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authToken = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "authToken");
+        userProfile = await FetchUserProfileAsync(authToken);
+        allAchievements = await FetchAllAchievementsAsync();
+        completedAchievementIds = await FetchCompletedAchievementsAsync(authToken);
+        completedAchievements = completedAchievementIds.Select(a => allAchievements.First(a1 => a1.Id == a.AchieveId)).ToList();
+        nonCompletedAchievements = allAchievements.Except(completedAchievements).ToList();
+    }
+
+    private async Task<UserProfile> FetchUserProfileAsync(string authToken)
+    {
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
+        var response = await httpClient.GetAsync("/api/users/current");
+
+        if (response.IsSuccessStatusCode)
+        {
+            var userProfile = await response.Content.ReadFromJsonAsync<UserProfile>();
+            return userProfile;
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Авторизуйтесь заново.");
+            navigationManager.NavigateTo("/login");
+            return null;
+        }
+    }
+
+    private async Task<List<Achievement>> FetchAllAchievementsAsync()
+    {
+        httpClient.DefaultRequestHeaders.Add("Accept-Language", "ru");
+        var response = await httpClient.GetFromJsonAsync<List<Achievement>>("/api/achievements");
+        return response;
+    }
+
+    private async Task<List<CompletedAchievementResponseItem>> FetchCompletedAchievementsAsync(string authToken)
+    {
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
+        var response = await httpClient.GetAsync("/api/completedachievements/current");
+
+        if (response.IsSuccessStatusCode)
+        {
+            var completedAchievements = await response.Content.ReadFromJsonAsync<List<CompletedAchievementResponseItem>>();
+            return completedAchievements;
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Авторизуйтесь заново.");
+            navigationManager.NavigateTo("/login");
+            return new List<CompletedAchievementResponseItem> { };
+        }
+    }
+
+    private void OnAchievementSelected(Achievement achievement)
+    {
+        if (selectedAchievements.Contains(achievement))
+        {
+            selectedAchievements.Remove(achievement);
+        }
+        else
+        {
+            selectedAchievements.Add(achievement);
+        }
+    }
 
     private void OpenModal()
     {
@@ -118,4 +205,19 @@
     {
         isModalVisible = isVisible;
     }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (selectedAchievements.Count > 0)
+        {
+            var qrCodeData = $"{userProfile.Id}:{string.Join(":", selectedAchievements.Select(a => a.Id))}";
+            var qrGenerator = new QRCodeGenerator();
+            var qrCode = qrGenerator.CreateQrCode(qrCodeData, QRCodeGenerator.ECCLevel.Q);
+            var qrCodeImageBytes = new PngByteQRCode(qrCode).GetGraphic(20);
+            qrCodeImage = $"data:image/png;base64,{Convert.ToBase64String(qrCodeImageBytes)}";
+        }
+    }
+
 }

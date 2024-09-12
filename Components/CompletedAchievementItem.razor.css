@@ -1,0 +1,75 @@
+﻿.achievement {
+    background-color: white;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 15px;
+}
+
+    .achievement::before {
+        background: black;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 50%;
+    }
+
+
+.completed {
+    background-color: #151e1d;
+}
+
+.about {
+    margin-left: 15px;
+}
+
+.picture {
+    height: 64px;
+    width: 64px;
+    margin: 0 5px;
+}
+
+.title {
+    font-size: 1.2em;
+    color: white;
+    margin-bottom: 0 !important;
+}
+
+.description {
+    font-size: 1em;
+    color: gray;
+}
+
+.spec {
+    margin: 20px;
+}
+
+.text { 
+    font-size: 0.8em;
+    color: silver;
+    padding-top:1%;
+    font-weight: bold;
+}
+
+.perscent {
+    font-size: 15pt;
+    font-weight: bold;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: gray;
+}
+
+.perscentIcon {
+    height: 20px;
+    width: 20px;
+}
+
+@media(max-width:600px) {
+    .achievement {
+        margin: 15px 10px 15px 10px;
+    }
+}

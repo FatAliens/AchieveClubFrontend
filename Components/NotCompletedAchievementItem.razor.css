@@ -3,7 +3,7 @@
     border-radius: 15px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     margin: 0;
     padding: 15px;
 }
@@ -16,6 +16,11 @@
         width: 50%;
     }
 
+.is-selected {
+    background-color: #253734 !important;
+}
+
+
 .completed {
     background-color: #151e1d;
 }
@@ -27,7 +32,6 @@
 .picture {
     height: 64px;
     width: 64px;
-    border-radius: 50%;
     margin: 0 5px;
 }
 
