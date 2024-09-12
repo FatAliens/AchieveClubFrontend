@@ -1,0 +1,121 @@
+﻿@page "/userprofile/{userId}"
+@using System.Reflection
+@using System.Net.Http.Headers
+@layout MainLayout
+@inject IJSRuntime JSRuntime
+@inject HttpClient httpClient
+
+@if (user != null)
+{
+    <header>
+        <div class="heading-wrapper">
+        </div>
+
+        <div class="userProfile">
+            <div class="userImage">
+                <label for="changePhotoInput" class="changePhotoText">
+                    <img id="userProfileImg" src="@($"{httpClient.BaseAddress}/{user.Avatar}")" alt="User Avatar">
+                </label>
+                <div class="userId">
+                    <p id="nameSurname">@($"{user.FirstName} {user.LastName}")</p>
+                </div>
+            </div>
+            <div class="clubImage">
+                <img id="clubImg" src="@($"{httpClient.BaseAddress}/{user.ClubLogo}")" alt="Club Logo">
+                <a id="locate" href="club"><p id="clubName">@user.ClubName</p></a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="generalInfo">
+            <div class="xp">
+                <h1 id="XPLevel">@user.XpSum ХР</h1>
+                <p id="XPSlogan">Общее количество опыта</p>
+            </div>
+            <hr id="hr">
+            <div class="task">
+                <!--Completed Count-->
+                <h1 id="allTasks">Заданий выполнено: @completedAchievementIds.Count из @allAchievements.Count</h1>
+                <!--Completed Ratio (%)-->
+                <p id="tasksSlogan">Выполнено @completedPercentage%</p>
+
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: @completedPercentage%;"></div>
+                </div>
+            </div>
+        </div>
+        <!---It's generalInfo -->
+        @if (allAchievements.Count > 0)
+        {
+            @if(completedAchievements.Count > 0)
+            {
+                <div class="completed" id="completed">
+                    <h1 id="completedTasks">Выполненные </h1>
+                </div>
+                <div class="achievement-list">
+                    @foreach (var achievement in completedAchievements)
+                    {
+                        <CompletedAchievementItem achievement=@achievement BaseAdress=@(httpClient.BaseAddress.ToString()) />
+                    }
+                </div>
+            }
+
+            @if (nonCompletedAchievements.Count > 0)
+            {
+                <div class="notCompleted" id="notCompleted">
+                    <h1 id="notCompletedTasks">Невыполненные </h1>
+                </div>
+                <div class="achievement-list">
+                    @foreach (var achievement in nonCompletedAchievements)
+                    {
+                        <CompletedAchievementItem achievement=@achievement BaseAdress=@(httpClient.BaseAddress.ToString()) />
+                    }
+                </div>
+            }
+        }
+    </main>
+}
+
+@code {
+    [Parameter]
+    public string userId { get; set; }
+
+    private User user;
+    private List<Achievement> allAchievements;
+    private List<CompletedAchievementResponseItem> completedAchievementIds;
+    private List<Achievement> completedAchievements;
+    private List<Achievement> nonCompletedAchievements;
+    private List<Achievement> selectedAchievements = new List<Achievement>();
+    private int completedPercentage => (allAchievements.Count / completedAchievementIds.Count);
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await FetchUserAsync();
+        allAchievements = await FetchAllAchievementsAsync();
+        completedAchievementIds = await FetchCompletedAchievementsAsync();
+        completedAchievements = completedAchievementIds.Select(a => allAchievements.First(a1 => a1.Id == a.AchieveId)).ToList();
+        nonCompletedAchievements = allAchievements.Except(completedAchievements).ToList();
+    }
+
+    private async Task<User> FetchUserAsync()
+    {
+        var response = await httpClient.GetAsync($"/api/users/{userId}");
+        var user = await response.Content.ReadFromJsonAsync<User>();
+        return user;
+    }
+
+    private async Task<List<Achievement>> FetchAllAchievementsAsync()
+    {
+        httpClient.DefaultRequestHeaders.Add("Accept-Language", "ru");
+        var response = await httpClient.GetFromJsonAsync<List<Achievement>>("/api/achievements");
+        return response;
+    }
+
+    private async Task<List<CompletedAchievementResponseItem>> FetchCompletedAchievementsAsync()
+    {
+        var response = await httpClient.GetAsync($"/api/completedachievements/{userId}");
+        var completedAchievements = await response.Content.ReadFromJsonAsync<List<CompletedAchievementResponseItem>>();
+        return completedAchievements;
+    }
+
+}

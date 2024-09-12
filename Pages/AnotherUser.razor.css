@@ -1,0 +1,554 @@
+﻿header {
+    background-color: ;
+    border-radius: 0px 0px 50px 50px;
+    margin: 0;
+}
+
+main {
+    background-color: #0e1316;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+nav {
+    background: white;
+    position: fixed;
+    width: 480px;
+    top: 1010px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5)
+}
+
+.userMenu {
+    display: flex;
+    justify-content: space-around;
+}
+
+#exitImg {
+    width: 40px;
+    height: 40px;
+    transform: rotate(180deg);
+}
+
+.paragraph {
+    padding: 15px;
+}
+
+#userParagraph {
+    width: 50px;
+}
+
+.userProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3%;
+}
+
+.userImage {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.clubImage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+#userProfileImg {
+    width: 148px;
+    height: 148px;
+    border-radius: 50%;
+    border: 1px solid #0d2122;
+}
+
+#clubImg {
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    border: 1px solid #0d2122;
+}
+
+#nameSurname {
+    margin-left: 5%;
+    width: 100%;
+}
+
+.changePhotoInput {
+    display: none;
+}
+
+.changePhotoContainer {
+    margin-top: 10px;
+    color: mediumaquamarine;
+}
+.userId {
+    font-family: 'Exo 2', sans-serif;
+    font-style: normal;
+    font-weight: lighter;
+    font-size: xx-large;
+    color: white;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+    .userId * {
+        margin: 0;
+    }
+
+#locate {
+    color: mediumaquamarine !important;
+    text-decoration: none;
+}
+
+    #locate:visited {
+        color: white;
+    }
+
+.heading-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+#profileSlogan {
+    display: flex;
+    justify-content: center !important;
+    width: 60%;
+    font-size: 20px;
+    font-family: 'Exo 2', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    margin-left: 20%;
+    color: white;
+    justify-content: flex-end;
+}
+
+.exitLink {
+    display: flex;
+    justify-content: left;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.xp {
+    margin-bottom: 15px;
+}
+.task {
+    margin-top: 15px;
+}
+
+    .exitLink a {
+        cursor: pointer;
+    }
+
+#locate, #XPLevel, #allTasks, #nameTask, #reward {
+    font-family: 'Exo 2', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 19px;
+    color: white;
+    margin: 0;
+}
+
+#completedTasks, #notCompletedTasks {
+    font-family: 'Exo 2', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 29px;
+    margin: 0;
+    color: white;
+    text-align: center;
+}
+
+#locateSlogan, #XPSlogan, #tasksSlogan, .infoTask, .notInfoTask {
+    font-family: 'Exo 2', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    margin: 0;
+    color: white;
+    padding-top: 5px;
+}
+
+.notInfoTask {
+    color: #0e1316;
+}
+
+.taskXP {
+    padding-right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.infoTask {
+    color: #0e1316;
+}
+
+.userPerscentIcon {
+    width: 20px;
+}
+
+.taskXP p {
+    font-size: large;
+    font-weight: bold;
+    margin: 0;
+    /*margin-right: 4px;*/
+    color: white !important;
+}
+
+.taskXPNotCompleted p {
+    color: #0e1316;
+}
+
+.generalInfo {
+    text-align: center;
+}
+
+.generalInfo, .completedTask, .notCompletedTask {
+    background: #0d2122;
+    margin: 3%;
+    padding: 2%;
+    border-radius: 20px;
+    width: 56%;
+}
+
+#completed, #notCompleted {
+    margin-bottom: 10px;
+}
+
+#notCompleted {
+    margin-top: 15px;
+}
+
+#completedTask, #notCompletedTask {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: #7BC3FF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+}
+
+#notCompletedTask {
+    background: white;
+}
+
+#notComplitedTaskHighlighted {
+    background: #98ffdf;
+}
+
+#acceptList {
+    right: 5%;
+    bottom: 15%;
+    z-index: 1;
+    border: none;
+    text-align: center;
+    position: fixed;
+    border-radius: 20px;
+    padding: 15px;
+    background: #2a6b6e;
+    color: black;
+}
+
+    #acceptList:hover {
+        cursor: pointer;
+    }
+
+    #qr-code-img {
+        width: 48px;
+        object-fit: cover;
+    }
+
+.aboutTask {
+    width: 100%;
+}
+
+#infoTask {
+    color: white;
+}
+
+#logoTask {
+    width: 60px;
+    object-fit: cover;
+}
+
+#clubName {
+    text-align: center;
+    color: white;
+}
+
+
+#hr {
+    background: #818181;
+}
+
+#markUp, .markUpRed {
+    margin: 0;
+    font-family: 'Exo 2', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    border: 1px solid;
+    padding: 4px;
+    border-radius: 10px;
+    color: #0e1316;
+}
+
+#markUpRed {
+    border: 1px solid #ff0000;
+    color: #ff0000;
+}
+
+.mark {
+    display: flex;
+    justify-content: space-between;
+}
+
+.taskXP {
+    padding-left: 10px;
+}
+
+.taskImg {
+    padding-right: 10px;
+    padding-top: 4px;
+}
+
+#markUp {
+    height: 20px;
+}
+
+.markUpRed {
+    height: 20px;
+}
+
+footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+.footerSections {
+    display: flex;
+    background: white;
+    width: 100%;
+    justify-content: center;
+    -webkit-box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
+}
+
+footer img {
+    width: 50px;
+    margin: 10px 30px 5px 30px;
+    object-fit: cover;
+}
+
+.secondSection hr {
+    border-bottom: 5px solid #0e1316;
+    border-radius: 10px 10px 0px 0px;
+    margin: 0;
+}
+
+.px {
+    width: 100%;
+    height: 75px;
+}
+
+.achievement-list {
+    width: 60%;
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+#achieve-count {
+    margin: 2%;
+}
+
+.modal-achievements {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /*white-space: nowrap;*/
+    overflow-x: auto;
+    width: 90%;
+    max-width: 90%;
+}
+
+.modal-achieve {
+    background: #252b2b;
+    height: 10em;
+    margin: 1%;
+    padding: 0 5% 0 5%;
+    border-radius: 10px;
+    margin-right: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+    .modal-achieve img {
+        width: 4em;
+        object-fit: cover;
+    }
+
+    .modal-achieve h3 {
+        font-size: 0.8em;
+        text-align: center;
+        margin-top: 5%;
+        word-wrap: break-word;
+    }
+
+.qr-code {
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    margin: 2%;
+    padding: 5%;
+}
+
+    .qr-code img {
+        width: 15em;
+        object-fit: cover;
+    }
+
+#show-qrcode {
+    text-align: center;
+}
+
+#modal-nameSurname {
+    width: 50%;
+    text-align: center;
+}
+
+#modal-userImg {
+    width: 7em;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid #0d2122;
+}
+
+@media(max-width:430px) {
+    .achievement-list {
+        grid-template-columns: repeat(1, 1fr) !important;
+        gap: 0px;
+        width: unset !important;
+    }
+    #infoTask {
+        text-align: left;
+    }
+
+    .modal-achievements {
+        scrollbar-width: none; /* Скрываем скролл-бар в Firefox */
+        -ms-overflow-style: none; /* Скрываем скролл-бар в Internet Explorer и Edge */
+    }
+
+        .modal-achievements::-webkit-scrollbar {
+            display: none; /* Скрываем скролл-бар в WebKit-браузерах (Chrome, Safari) */
+        }
+}
+
+@media(max-width:600px) {
+    .generalInfo, .completedTask, .notCompletedTask {
+        margin-left: 10px;
+        margin-right: 10px;
+        width: 85%;
+    }
+
+    .achievement-list {
+        grid-template-columns: repeat(1, 1fr) !important;
+        gap: 0px;
+        width: unset !important;
+    }
+
+    #notCompletedTasks, #completedTasks {
+        padding-left: 10px;
+    }
+
+    #nameSurname {
+        width: unset !important;    
+    }
+
+    .modal-achievements {
+        scrollbar-width: none; /* Скрываем скролл-бар в Firefox */
+        -ms-overflow-style: none; /* Скрываем скролл-бар в Internet Explorer и Edge */
+    }
+
+        .modal-achievements::-webkit-scrollbar {
+            display: none; /* Скрываем скролл-бар в WebKit-браузерах (Chrome, Safari) */
+        }
+}
+
+@media (max-width: 800px) {
+    #acceptList {
+        right: 2%;
+    }
+    .achievement-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        width: unset !important;
+    }
+}
+
+@media (min-width:1100px) {
+    #infoTask {
+        width: 100%;
+        text-align: left;
+    }
+
+    .notInfoTask {
+        width: 100%;
+        text-align: left;
+    }
+
+    #nameTask {
+        text-align: left;
+    }
+
+    .mark {
+        display: unset;
+    }
+
+    .taskXP {
+        width: 100px;
+        text-align: right;
+    }
+
+    .notCompletedTask {
+        cursor: pointer;
+    }
+}
+
+.progress-container {
+    width: 100%;
+    background-color: #2b3635;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.progress-bar {
+    height: 10px;
+    background-color: #74b6bc;
+    transition: width 0.5s;
+}
