@@ -4,16 +4,12 @@ using System.Net.Http.Json;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 
+
 namespace AchieveClubFrontend.Services;
 
-public class AuthService
+public class AuthService(HttpClient client)
 {
-    private readonly HttpClient _httpClient;
-
-    public AuthService()
-    {
-        _httpClient = new HttpClient { BaseAddress = new Uri("https://achieveclub-ekdpajekhkd0amct.polandcentral-01.azurewebsites.net") };
-    }
+    private HttpClient _httpClient = client;
 
     public async Task<LoginResponse> LoginAsync(LoginData loginData)
     {

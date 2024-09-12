@@ -2,6 +2,7 @@
 @layout AuthLayout
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
+@inject HttpClient _httpClient
 
 <header>
     <div id="title">
@@ -55,7 +56,7 @@
     protected override void OnInitialized()
     {
         editContext = new EditContext(loginData);
-        authService = new AuthService();
+        authService = new AuthService(_httpClient);
     }
 
     private async Task LoginAsync()
