@@ -1,5 +1,7 @@
 ﻿@page "/topusers"
 @layout MainLayout
+@inject NavigationManager _navigation
+@inject HttpClient HttpClient
 
 <header>
     <div class="heading-wrapper">
@@ -11,90 +13,64 @@
 <!-----------------------------------header----------------------------------------->
 <main>
     <div class="topUsers">
-        <div class="topUser">
-            <div class="userImage">
-                <img src="./img/logo.png" alt="">
-            </div>
-            <div class="userAboutWrapper">
-                <div class="nameSurnameUser">
-                    <span>Имя Фамилия</span>
-                </div>
-                <div class="xpCountDefaultUser">
-                    <span>1337 XP</span>
-                </div>
-            </div>
-            <div class="ClubLogoAndPositionUser">
-                <div class="clubUserLogo">
-                    <img src="./img/logo.png" alt="">
-                </div>
-                <div class="topPositionUserDefault">
-                    <span>#1</span>
-                </div>
-            </div>
-        </div>
-        <div class="topUser">
-            <div class="userImage">
-                <img src="./img/logo.png" alt="">
-            </div>
-            <div class="userAboutWrapper">
-                <div class="nameSurnameUser">
-                    <span>Имя Фамилия</span>
-                </div>
-                <div class="xpCountDefaultUser">
-                    <span>1337 XP</span>
-                </div>
-            </div>
-            <div class="ClubLogoAndPositionUser">
-                <div class="clubUserLogo">
-                    <img src="./img/logo.png" alt="">
-                </div>
-                <div class="topPositionUserDefault">
-                    <span>#1</span>
-                </div>
-            </div>
-        </div>
-        <div class="topUser">
-            <div class="userImage">
-                <img src="./img/logo.png" alt="">
-            </div>
-            <div class="userAboutWrapper">
-                <div class="nameSurnameUser">
-                    <span>Имя Фамилия</span>
-                </div>
-                <div class="xpCountDefaultUser">
-                    <span>1337 XP</span>
-                </div>
-            </div>
-            <div class="ClubLogoAndPositionUser">
-                <div class="clubUserLogo">
-                    <img src="./img/logo.png" alt="">
-                </div>
-                <div class="topPositionUserDefault">
-                    <span>#1</span>
-                </div>
-            </div>
-        </div>
-        <div class="topUser">
-            <div class="userImage">
-                <img src="./img/logo.png" alt="">
-            </div>
-            <div class="userAboutWrapper">
-                <div class="nameSurnameUser">
-                    <span>Имя Фамилия</span>
-                </div>
-                <div class="xpCountDefaultUser">
-                    <span>1337 XP</span>
-                </div>
-            </div>
-            <div class="ClubLogoAndPositionUser">
-                <div class="clubUserLogo">
-                    <img src="./img/logo.png" alt="">
-                </div>
-                <div class="topPositionUserDefault">
-                    <span>#1</span>
-                </div>
-            </div>
-        </div>
+        @if (filteredUsers.Count > 0)
+        {
+            @foreach (var user in filteredUsers)
+            {
+                <a @onclick="() => NavigateToUserProfile(user.Id)">
+                    <div class="topUser">
+                        <div class="userImage">
+                            <img src="@($"{HttpClient.BaseAddress}/{user.Avatar}")" alt="">
+                        </div>
+                        <div class="userAboutWrapper">
+                            <div class="nameSurnameUser">
+                                <span>@($"{user.FirstName} {user.LastName}")</span>
+                            </div>
+                            <div class="xpCountUser">
+                                <span>Опыт: @user.XpSum</span>
+                            </div>
+                        </div>
+                        <div class="ClubLogoAndPositionUser">
+                            <div class="clubUserLogo">
+                                <img src="@($"{HttpClient.BaseAddress}/{user.ClubLogo}")" alt="">
+                            </div>
+                            <div class="topPositionUser">
+                                <span>#@user.Position</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
+        }
+        else
+        {
+            <p>No users found.</p>
+        }
     </div>
 </main>
 <!-----------------------------------main----------------------------------------->
+
+@code {
+    private List<User> topUsers = new List<User>();
+    private List<User> filteredUsers = new List<User>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await HttpClient.GetAsync("/api/users");
+        if (response.IsSuccessStatusCode)
+        {
+            topUsers = await response.Content.ReadFromJsonAsync<List<User>>();
+            filteredUsers = topUsers.OrderByDescending(u => u.XpSum).ToList();
+            for (int i = 0; i < filteredUsers.Count; i++)
+            {
+                filteredUsers[i].Position = i + 1;
+            }
+        }
+    }
+
+    private void NavigateToUserProfile(int userId)
+    {
+        _navigation.NavigateTo($"/userprofile/{userId}");
+    }
+
+}
