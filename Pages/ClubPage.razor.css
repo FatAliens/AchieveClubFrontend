@@ -29,14 +29,32 @@ main {
 
 .topTwoClub {
     background: linear-gradient(180deg, #A7A7A7 0%, #D1D1CF 25.31%);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 25px;
+    width: 40%;
+    margin-top: 2%;
+    padding: 2%;
 }
 
 .topThreeClub {
     background: linear-gradient(180deg, #E68F3F 73.23%, #BE7532 100%);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 25px;
+    width: 40%;
+    margin-top: 2%;
+    padding: 2%;
 }
 
 .topClub {
     background: linear-gradient(180deg, #E68F3F 73.23%, #BE7532 100%);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 25px;
+    width: 40%;
+    margin-top: 2%;
+    padding: 2%;
 }
 
 #arrowExit a img:hover {

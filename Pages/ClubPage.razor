@@ -1,0 +1,122 @@
+﻿@page "/clubpage/{clubId}/{position}"
+@layout MainLayout
+@inject NavigationManager _navigation
+@inject HttpClient HttpClient
+
+<!------------------------------------------------------------------------->
+<!-- topOneClub - это класс по топу, есть еще классы для 2/3 и ниже мест -->
+<!------------------------------------------------------------------------->
+@if (club != null)
+{
+    <header>
+        <div id="profileSlogan">
+            <div id="header-cont">
+                <div id="arrowExit">
+                    <a href="topclubs"><img src="/image/back_icon.png" alt=""></a>
+                </div>
+                <div id="club-name-cont">
+                    <span id="club"><b>@club.Title</b></span>
+                </div>
+            </div>
+        </div>
+        <div class="@GetClubClass(clubPosition)">
+            <div class="heading-wrapper">
+                <div class="clubPositionLogo">
+                    <span id="clubPosition">#@clubPosition</span>
+                    <img src="@($"{HttpClient.BaseAddress}/{club.LogoURL}")" alt="">
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="historyClub">
+            <h3>История клуба:</h3>
+            <p id="textHistoryClub">
+                @club.Description
+            </p>
+            <p id="adressHistoryClub">
+                @club.Address
+            </p>
+        </div>
+        <div class="topThreeUsers">
+            <div class="topThreeUsersHead">
+                <h3>Топ <b>3</b> пользователей </h3>
+            </div>
+            @if (club.Users.Count > 0)
+            {
+                @foreach (var user in club.Users.Take(3))
+                {
+                    <a @onclick="() => NavigateToUserProfile(user.Id)">
+                        <div class="topOneUser">
+                            <div class="userImage">
+                                <img src="@($"{HttpClient.BaseAddress}/{user.Avatar}")" alt="">
+                            </div>
+                            <div class="userAboutWrapper">
+                                <div class="nameSurnameUser">
+                                    <span>@($"{user.FirstName} {user.LastName}")</span>
+                                </div>
+                                <div class="xpCountUser">
+                                    <span>@user.XpSum XP</span>
+                                </div>
+                            </div>
+                            <div class="ClubLogoAndPositionUser">
+                                <div class="topPositionUser">
+                                    <span>#@(club.Users.IndexOf(user) + 1)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+            }
+            else
+            {
+                <p>No users found.</p>
+            }
+        </div>
+    </main>
+}
+
+@code {
+    [Parameter]
+    public string clubId { get; set; }
+
+    [Parameter]
+    public string position { get; set; }
+
+    private Club club;
+    private int clubPosition;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await HttpClient.GetAsync($"/api/clubs/{clubId}");
+        if (response.IsSuccessStatusCode)
+        {
+            club = await response.Content.ReadFromJsonAsync<Club>();
+            club.Users = club.Users.OrderByDescending(u => u.XpSum).ToList();
+        }
+        if (int.TryParse(position, out int parsedPosition))
+        {
+            clubPosition = parsedPosition;
+        }
+        else
+        {
+            // Обработка ошибки, если значение position не является целым числом
+        }
+    }
+
+    private string GetClubClass(int position)
+    {
+        return position switch
+        {
+            1 => "topOneClub",
+            2 => "topTwoClub",
+            3 => "topThreeClub",
+            _ => "otherClub"
+        };
+    }
+
+    private void NavigateToUserProfile(int userId)
+    {
+        _navigation.NavigateTo($"/userprofile/{userId}");
+    }
+}
